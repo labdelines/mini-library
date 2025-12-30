@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+
+    <!-- Mobile responsive -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Admin Login</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="auth-container">
+      <h1>Admin Login</h1>
+
+      <form id="loginForm">
+        <label>Email</label>
+        <input type="email" name="email" required />
+
+        <label>Password</label>
+        <input type="password" name="password" required />
+
+        <button class="primary-btn" type="submit">Login</button>
+      </form>
+
+      <a href="/">← Back to library</a>
+    </div>
+
+    <!-- Loading -->
+    <script src="/loading.js"></script>
+
+    <!-- Popup error -->
+    <script src="/toast.js"></script>
+
+    <script>
+      document
+        .getElementById("loginForm")
+        .addEventListener("submit", async (e) => {
+          e.preventDefault();
+
+          const form = e.target;
+          const body = {
+            email: form.email.value,
+            password: form.password.value,
+          };
+
+          try {
+            showLoader("Loging in...");
+
+            const res = await fetch("auth/login", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(body),
+            });
+
+            if (!res.ok) {
+              showToast("Incorrect username or password", "error")
+              return;
+            }
+
+            const data = await res.json();
+
+            // Save token
+            localStorage.setItem("token", data.token);
+
+            showToast("Logged success", "success")
+
+
+            // Redirect back home
+            window.location.href = "/admin.html";
+          } catch (err) {
+            throw new Error(data.message || "Incorrect username or passwword");
+          } finally {
+            hideLoader();
+          }
+        });
+    </script>
+  </body>
+</html>

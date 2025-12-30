@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Add Book</title>
+    <link rel="stylesheet" href="styles.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body>
+    <div class="container">
+      <h1 id="pageTitle"></h1>
+
+      <form class="form-card" id="bookForm" enctype="multipart/form-data">
+  <label>Book Title</label>
+  <input type="text" name="title" required />
+
+  <label>Category</label>
+  <input type="text" name="category" required />
+
+  <label>Amount</label>
+  <input type="number" name="amount" required />
+
+  <label>Zone</label>
+  <input type="text" name="zone" required />
+
+  <label>Description</label>
+  <textarea name="description"></textarea>
+
+  <label>Upload or Take Photo</label>
+  <input type="file" id="coverInput" name="coverImage" />
+
+  <button class="primary-btn">Save Book</button>
+</form>
+    </div>
+
+    <!-- Loading -->
+    <script src="/loading.js"></script>
+
+    <!-- Popup error -->
+    <script src="/toast.js"></script>
+
+    <script>
+      const token = localStorage.getItem("token");
+      if (!token) window.location.href = "/login.html";
+
+      const form = document.getElementById("bookForm");
+      const params = new URLSearchParams(window.location.search);
+      const id = params.get("id");
+
+      const pageTitle = document.getElementById("pageTitle");
+      pageTitle.innerText = id ? "Edit Book" : "Add New Book";
+
+      // Handle form submit
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault(); // stop normal HTML form submit
+
+        const formData = new FormData(form);
+
+        const url = id ? `/books/${id}` : `/books`;
+        const method = id ? "PUT" : "POST";
+
+        try {
+          showLoader(id ? "Updating book..." : "Creating book...");
+
+          const res = await fetch(url, {
+            method,
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+            body: formData,
+          });
+
+          const data = await res.json();
+
+          if (!res.ok) {
+          showToast("Error: " + data.message, "error");
+            throw new Error(data.message || "Failed to save book");
+          }
+
+          showToast("Book saved!", "success");
+          window.location.href = "/admin.html";
+        } catch (err) {
+          showToast("Error: " + err.message, "error");
+        } finally {
+          hideLoader();
+        }
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+
+    <!-- Mobile responsive -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- SEO -->
+    <meta
+      name="description"
+      content="Mini Library application to store and view books"
+    />
+    <meta name="keywords" content="books, library, reading" />
+    <meta name="author" content="Your Name" />
+
+    <!-- Title -->
+    <title>LABDELINES Library</title>
+
+    <!-- Google Font -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="styles.css" />
+
+    <!-- Tab icon -->
+    <link rel="icon" type="image/png" href="favicon.png" />
+
+    <!-- Theme Color (mobile UI) -->
+    <meta name="theme-color" content="#2563eb" />
+
+    <!-- Social Share Preview (optional) -->
+    <meta property="og:title" content="Mini Library" />
+    <meta property="og:description" content="A simple digital library" />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="cover.png" />
+  </head>
+
+  <body>
+    <div class="container">
+      <h1>📚 LABDELINES Library</h1>
+
+      <a href="login.html">Admin Login</a>
+
+      <div id="bookGrid" class="grid"></div>
+    </div>
+
+    <!-- Loading -->
+    <script src="/loading.js"></script>
+
+    <!-- Popup error -->
+    <script src="/toast.js"></script>
+
+    <script src="scripts.js"></script>
+    <script>
+      loadBooks(); // Load books on page start
+    </script>
+  </body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+
+  <!-- Mobile responsive -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Admin Panel</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div class="admin-container">
+
+  <h1>Admin Dashboard</h1>
+
+  <button onclick="logout()" class="primary-btn logout-btn">Logout</button>
+
+  <a class="primary-btn" href="add.html">+ Add New Book</a>
+
+  <div id="adminBooks" class="admin-books"></div>
+
+</div>
+
+
+<!-- Loading -->
+    <script src="/loading.js"></script>
+
+    <!-- Popup error -->
+    <script src="/toast.js"></script>
+
+
+    <!-- Confirm popup -->
+     <script src="/confirm.js"></script>
+
+<script src="admin.js"></script>
+
+</body>
+</html>

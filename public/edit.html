@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Book</title>
+
+    <!-- Link to your global stylesheet -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div class="container">
+
+    <h2>Edit Book</h2>
+
+   <form id="editBookForm" class="form-card" enctype="multipart/form-data">
+
+  <label>Current Cover</label>
+  <img id="currentCover" class="book-detail-img" src="" alt="Current Cover">
+
+  <label>Replace Cover Image</label>
+  <input type="file" name="coverImage" id="coverInput">
+
+  <label>Title</label>
+  <input type="text" name="title" id="title" required>
+
+  <label>Category</label>
+  <input type="text" name="category" id="category" required>
+
+  <label>Amount</label>
+  <input type="number" name="amount" id="amount" required>
+
+  <label>Zone</label>
+  <input type="text" name="zone" id="zone" required>
+
+  <label>Description</label>
+  <textarea name="description" id="description"></textarea>
+
+  <button class="primary-btn">Save Changes</button>
+</form>
+
+
+</div>
+
+    <!-- Loading -->
+    <script src="/loading.js"></script>
+
+    <!-- Popup error -->
+    <script src="/toast.js"></script>
+
+<script>
+    const token = localStorage.getItem("token");
+    if (!token) window.location.href = "/login.html";
+
+    const form = document.getElementById("editBookForm");
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get("id");
+
+    if (!id) {
+        alert("Invalid book");
+        window.location.href = "/admin.html";
+    }
+
+    // Load book data
+    async function loadBook() {
+        const res = await fetch(`/books/${id}`);
+        const book = await res.json();
+
+         document.getElementById("title").value = book.title || "";
+  document.getElementById("category").value = book.category || "";
+  document.getElementById("amount").value = book.amount || "";
+  document.getElementById("zone").value = book.zone || "";
+  document.getElementById("description").value = book.description || "";
+
+        if (book.coverImage) {
+            document.getElementById("currentCover").src = book.coverImage;
+        }
+    }
+    loadBook();
+
+    // Update book
+    form.addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  const formData = new FormData(form);
+
+  try {
+    showLoader("Editing book...");
+
+    const res = await fetch(`/books/${id}`, {
+      method: "PUT",
+      headers: { Authorization: `Bearer ${token}` },
+      body: formData
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      throw new Error(data.message || "Failed to update book");
+    }
+
+    showToast("Book updated", "success");
+
+    setTimeout(() => {
+      window.location.href = "/admin.html";
+    }, 800);
+
+  } catch (err) {
+    showToast(err.message, "error");
+  } finally {
+    hideLoader();
+  }
+});
+
+</script>
+
+</body>
+</html>
