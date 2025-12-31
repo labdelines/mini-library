@@ -4,7 +4,8 @@
   --primary-dark: #6f0a0e;
   --primary-soft: #f3d6d7;
 
-  --bg: #7d0b10;               /* main background */
+  /* --bg: #7d0b10;               main background */
+  --bg: url("/assets/labdelines_xl.png");
   --bg-soft: #f7f4f4;          /* light interior background */
   --surface: #ffffff;
 
@@ -15,7 +16,7 @@
 
   /* UI */
   --border: #e6e6e6;
-  --radius: 14px;
+  --radius: 5px;
 
   /* Shadows (soft, architectural) */
   --shadow-sm: 0 4px 12px rgba(0,0,0,.08);
@@ -27,7 +28,12 @@
 }
 
 body {
-  background: linear-gradient(180deg, var(--bg), var(--primary-dark));
+  background-color: #8f0d12; /* your brand red */
+  background-image: url("/assets/labdelines_xl.png");
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+
   font-family: "Inter", Arial, sans-serif;
   margin: 0;
   padding: 24px;

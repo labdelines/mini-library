@@ -50,12 +50,6 @@
     <script src="/toast.js"></script>
 
 <script>
-  const API_BASE =
-  location.hostname === "localhost" &&
-  !location.port.includes("8888")
-    ? ""
-    : "/api";
-
     const token = localStorage.getItem("token");
     if (!token) window.location.href = "/login.html";
 
@@ -70,7 +64,7 @@
 
     // Load book data
     async function loadBook() {
-        const res = await fetch(`/books/${id}`);
+        const res = await fetch(`/api/books/${id}`);
         const book = await res.json();
 
          document.getElementById("title").value = book.title || "";
@@ -94,7 +88,7 @@
   try {
     showLoader("Editing book...");
 
-    const res = await fetch(`${API_BASE}/books/${id}`, {
+    const res = await fetch(`/api/books/${id}`, {
       method: "PUT",
       headers: { Authorization: `Bearer ${token}` },
       body: formData

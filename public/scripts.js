@@ -1,18 +1,10 @@
-const API_BASE =
-  location.hostname === "localhost" &&
-  !location.port.includes("8888")
-    ? ""
-    : "/api";
-
 
 // Load all books into grid
 async function loadBooks() {
   try {
     showLoader("Loading books...");
 
-    // const res = await fetch("/books");
-    const res = await fetch(`${API_BASE}/books`);
-
+    const res = await fetch("/api/books");
 
     if (!res.ok) {
       throw new Error("Failed to load books");
@@ -65,9 +57,7 @@ async function loadBookDetail() {
   try {
     showLoader("Loading book details...");
 
-    // const res = await fetch(`/books/${id}`);
-    const res = await fetch(`${API_BASE}/books/${id}`);
-
+    const res = await fetch(`/api/books/${id}`);
     if (!res.ok) {
       throw new Error("Book not found");
     }

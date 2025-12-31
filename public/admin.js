@@ -1,9 +1,3 @@
-const API_BASE =
-  location.hostname === "localhost" &&
-  !location.port.includes("8888")
-    ? ""
-    : "/api";
-
 // Protect page
 const token = localStorage.getItem("token");
 if (!token) {
@@ -14,7 +8,7 @@ if (!token) {
 async function loadAdminBooks() {
   try {
     showLoader("Loading books...");
-    const res = await fetch(`${API_BASE}/books`, {
+    const res = await fetch("/api/books", {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -74,7 +68,7 @@ async function deleteBook(id) {
     );
     if (!confirmed) return;
 
-    const res = await fetch(`${API_BASE}/books/${id}`, {
+    const res = await fetch(`/api/books/${id}`, {
       method: "DELETE",
       headers: {
         Authorization: `Bearer ${token}`,
