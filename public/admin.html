@@ -11,7 +11,8 @@
 </head>
 <body>
 
-<div class="admin-container">
+  <div class="container">
+
 
   <h1>Admin Dashboard</h1>
 
@@ -19,7 +20,25 @@
 
   <a class="primary-btn" href="add.html">+ Add New Book</a>
 
-  <div id="adminBooks" class="admin-books"></div>
+  <!-- Search bar -->
+<div class="search-box">
+  <input
+    type="text"
+    id="adminSearchInput"
+    placeholder="Search by title, category, or zone..."
+  />
+</div>
+
+<div id="adminBooks" class="grid"></div>
+
+
+<!-- Navigation -->
+<div class="pagination">
+  <button id="adminPrevBtn" class="primary-btn" disabled>Prev</button>
+  <span id="adminPageInfo"></span>
+  <button id="adminNextBtn" class="primary-btn">Next</button>
+</div>
+
 
 </div>
 

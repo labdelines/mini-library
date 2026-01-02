@@ -55,7 +55,7 @@
 
         const formData = new FormData(form);
 
-        const url = id ? `/api/books/${id}` : `/books`;
+        const url = id ? `/api/books/${id}` : `/api/books`;
         const method = id ? "PUT" : "POST";
 
         try {

@@ -13,8 +13,7 @@
     />
     <meta name="keywords" content="books, library, reading" />
     <meta name="author" content="LABDELINES - Mini library" />
-    <link rel="icon" href="/favicon.ico" type="image/x-icon">
-
+    <link rel="icon" href="/favicon.ico" type="image/x-icon" />
 
     <!-- Title -->
     <title>LABDELINES Library</title>
@@ -43,11 +42,27 @@
 
   <body>
     <div class="container">
-      <h1>📚 LABDELINES Library</h1>
+      <h1>LABDELINES Mini-library</h1>
 
       <a href="login.html">Admin Login</a>
 
+      <!-- Search bar -->
+      <div class="search-box">
+        <input
+          type="text"
+          id="searchInput"
+          placeholder="Search by title, category, or zone..."
+        />
+      </div>
+
       <div id="bookGrid" class="grid"></div>
+
+      <!-- Navigation -->
+      <div class="pagination">
+        <button id="prevBtn" class="primary-btn" disabled>Prev</button>
+        <span id="pageInfo"></span>
+        <button id="nextBtn" class="primary-btn">Next</button>
+      </div>
     </div>
 
     <!-- Loading -->
