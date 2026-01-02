@@ -6,16 +6,24 @@ let currentPage = 1;
 const BOOKS_PER_PAGE = 8;
 
 
+// Helper function
+function setUIEnabled(enabled) {
+  document.getElementById("searchInput").disabled = !enabled;
+  document.getElementById("prevBtn").disabled = !enabled;
+  document.getElementById("nextBtn").disabled = !enabled;
+}
+
 // Load all books into grid
 async function loadBooks() {
   try {
     showLoader("Loading books...");
+    setUIEnabled(false);
 
     const res = await fetch("/api/books");
     if (!res.ok) throw new Error("Failed to load books");
 
     allBooks = await res.json();
-    filteredBooks = allBooks; // 👈 important
+    filteredBooks = allBooks;
 
     if (allBooks.length === 0) {
       document.getElementById("bookGrid").innerHTML =
@@ -29,8 +37,10 @@ async function loadBooks() {
     showToast(err.message, "error");
   } finally {
     hideLoader();
+    setUIEnabled(true);
   }
 }
+
 
 function renderPage() {
   const container = document.getElementById("bookGrid");
