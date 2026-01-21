@@ -12,6 +12,8 @@ const User = require("./models/user.model");
 const app = express();
 
 
+// Middleware
+
 /* ======================
    Middleware
 ====================== */
